@@ -1,0 +1,168 @@
+          ldpcd_opt:
+push    {r4,r5,r6,r7,r8,r9,r10,r11,lr}
+movw    r2, #17792
+vpush   {d8}
+sub     sp, sp, #561152
+sub     sp, sp, #1328
+mov     r4, r1
+sub     sp, sp, #4
+movt    r2, #4
+mov     r1, #0
+mov     r11, r0
+add     r0, sp, #2608
+ldr     r6, [pc, #+632]
+bl      +13052  ; addr=0x00103fe0: memset
+mov     r2, #2592
+mov     r1, #0
+add     r0, sp, #16
+vldr    d8, [pc, #+596]
+bl      +13032  ; addr=0x00103fe0: memset
+movw    r2, #17792
+add     r0, sp, #278528
+mov     r1, #0
+movt    r2, #4
+add     r0, r0, #4016
+mov     r5, #0
+bl      +13004  ; addr=0x00103fe0: memset
+sub     r3, r4, #4
+str     r3, [sp, #+8]
+add     r3, r4, #16
+mov     r4, #0
+str     r3, [sp, #+12]
+add     r3, sp, #2608
+add     r8, sp, #278528
+add     r9, r3, #278528
+add     r8, r8, #4016
+add     r9, r9, #1408
+mov     r7, r3
+mov     r2, #2592
+mov     r1, #0
+mov     r0, r7
+add     r7, r7, r2
+bl      +12940  ; addr=0x00103fe0: memset
+mov     r2, #2592
+mov     r1, #0
+mov     r0, r8
+add     r8, r8, r2
+bl      +12920  ; addr=0x00103fe0: memset
+mov     r2, #2592
+mov     r1, r11
+add     r0, sp, #16
+bl      +11400  ; addr=0x00103a00: memcpy
+cmp     r7, r9
+bne     -68     ; addr=0x00100d3c: ldpcd_opt + 0x00000090
+mov     r3, #4
+str     r3, [sp, #+4]
+ldr     r8, [pc, #+464]
+add     r9, sp, #278528
+add     r10, sp, #2608
+add     r9, r9, #4016
+vldr    s11, [pc, #+436]
+add     r12, sp, #16
+vldr    s10, [pc, #+432]
+mov     r0, r10
+mov     r1, r9
+mov     r2, r12
+mov     lr, r8
+mov     r3, #0
+vmov.f32 s12, s11
+vmov.f32 s13, s10
+b       +20     ; addr=0x00100dd8: ldpcd_opt + 0x0000012c
+add     r3, r3, #1
+add     r2, r2, #4
+cmp     r3, #648
+add     r1, r1, #4
+add     r0, r0, #4
+beq     +92     ; addr=0x00100e38: ldpcd_opt + 0x0000018c
+ldr     r7, [lr, #+4]!
+cmp     r7, #1
+bne     -40     ; addr=0x00100dc0: ldpcd_opt + 0x00000114
+vldr    s14, [r2]
+vldr    s15, [r1]
+vsub.f32 s15, s14, s15
+vcmpe.f32 s15, #0.0
+vmrs    APSR_nzcv, fpscr
+vmovmi  r7, s13
+rsbmi   r7, r7, #0
+vabs.f32 s14, s15
+vcmpe.f32 s14, s12
+ vmovmi  s13, r7
+vmrs    APSR_nzcv, fpscr
+vstr    s15, [r0]
+ bmi     +12     ; addr=0x00100e28: ldpcd_opt + 0x0000017c
+vcmp.f32 s14, s11
+vmrs    APSR_nzcv, fpscr
+vmovmi.f32 s11, s14
+b       -108    ; addr=0x00100dc0: ldpcd_opt + 0x00000114
+vmov.f32 s11, s12
+mov     r4, r3
+vmov.f32 s12, s14
+b       -124    ; addr=0x00100dc0: ldpcd_opt + 0x00000114
+vmov.f32 s10, s13
+mov     r1, r10
+mov     r2, r9
+mov     r0, r8
+mov     r3, #0
+b       +20     ; addr=0x00100e68: ldpcd_opt + 0x000001bc
+add     r3, r3, #1
+add     r2, r2, #4
+cmp     r3, #648
+add     r12, r12, #4
+add     r1, r1, #4
+beq     +92     ; addr=0x00100ec8: ldpcd_opt + 0x0000021c
+ldr     lr, [r0, #+4]!
+cmp     lr, #1
+bne     -40     ; addr=0x00100e50: ldpcd_opt + 0x000001a4
+cmp     r4, r3
+beq     +172    ; addr=0x00100f2c: ldpcd_opt + 0x00000280
+vcvt.f64.f32 d16, s12
+vcmpe.f64 d16, d8
+vmrs    APSR_nzcv, fpscr
+vmovle  s15, r5
+strle   r5, [r2]
+ble     +8      ; addr=0x00100ea0: ldpcd_opt + 0x000001f4
+vsub.f64 d16, d16, d8
+vcvt.f32.f64 s15, d16
+vstr    s15, [r2]
+vldr    s13, [r1]
+vcvt.f32.s32 s14, s10
+vcmpe.f32 s13, #0.0
+vmrs    APSR_nzcv, fpscr
+vmulge.f32 s15, s14, s15
+vnmullt.f32 s15, s15, s14
+vadd.f32 s13, s13, s15
+vstr    s15, [r2]
+vstr    s13, [r12]
+b       -124    ; addr=0x00100e50: ldpcd_opt + 0x000001a4
+add     r8, r8, #2592
+add     r9, r9, #2592
+cmp     r8, r6
+add     r10, r10, #2592
+bne     -332    ; addr=0x00100d94: ldpcd_opt + 0x000000e8
+ldr     r3, [sp, #+4]
+subs    r3, r3, #1
+str     r3, [sp, #+4]
+bne     -364    ; addr=0x00100d84: ldpcd_opt + 0x000000d8
+ldr     r3, [sp, #+8]
+mov     r2, #2160
+add     r1, sp, #16
+add     r11, r11, #2592
+ldr     r0, [r3, #+4]!
+mov     r7, r3
+str     r3, [sp, #+8]
+bl      +10992  ; addr=0x00103a00: memcpy
+ldr     r2, [sp, #+12]
+cmp     r7, r2
+bne     -504    ; addr=0x00100d24: ldpcd_opt + 0x00000078
+add     sp, sp, #561152
+add     sp, sp, #1328
+add     sp, sp, #4
+vpop    {d8}
+pop     {r4,r5,r6,r7,r8,r9,r10,r11,pc}
+vcvt.f64.f32 d16, s11
+vcmpe.f64 d16, d8
+vmrs    APSR_nzcv, fpscr
+vmovle  s15, r5
+strle   r5, [r2]
+ble     -168    ; addr=0x00100ea0: ldpcd_opt + 0x000001f4
+b       -184    ; addr=0x00100e94: ldpcd_opt + 0x000001e8
